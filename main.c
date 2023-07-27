@@ -16,13 +16,14 @@ int main(int ac, char **av)
 	char **argv, **env, *file_path, *buffer;
 	int chars_count, words_count, function_num, status, check_return;
 	size_t buffer_size = 0;
-	(void)ac;
 
+	(void) ac;
 	while (1)
 	{
 		env = environ;
 		buffer = NULL;
-		display_prompt();
+		if (isatty(STDIN_FILENO) != 0)
+			display_prompt();
 		words_count = status = 0;
 		chars_count = getline(&buffer, &buffer_size, stdin);
 		if (feof(stdin))
