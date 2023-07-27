@@ -59,7 +59,7 @@ char *search_system(const char *filename)
 
 	if (filename == NULL)
 		return (NULL);
-	if (access(filename, F_OK) == 0)
+	if (access(filename, X_OK) == 0)
 	{
 		samefile = malloc(sizeof(char) * (strlen(filename) + 1));
 		strcpy(samefile, filename);
@@ -82,7 +82,7 @@ char *search_system(const char *filename)
 			char file_path[1024];
 
 			snprintf(file_path, sizeof(file_path), "%s/%s", path_entry, filename);
-			if (access(file_path, F_OK) == 0)
+			if (access(file_path, X_OK) == 0)
 			{
 				free(path_copy);
 				path_return = malloc(sizeof(char) * (strlen(file_path) + 1));
