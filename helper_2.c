@@ -32,7 +32,7 @@ int display_prompt(void)
 {
 	int flush_return, print_return;
 
-	print_return = printf(">> ");
+	print_return = printf("$ ");
 	flush_return = fflush(stdout);
 	if (flush_return == 0 && print_return == 2)
 		return (0);
