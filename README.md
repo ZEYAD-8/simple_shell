@@ -283,7 +283,7 @@ $
 
 ## Authors :black_nib:
 
-* **Zeyad Elnaggar** **||** [Github](https://github.com/ZEYAD-8) **|** [Twitter](https://twitter.com/Zeyad5o) **|** [email](zeyadosama15@gmail.com)  
+* **Zeyad Elnaggar** **||** [Github](https://github.com/ZEYAD-8) **|** [Twitter](https://twitter.com/Zeyad5o) **|** [email](zeyadosama15@gmail.com)
 * **Ahmed Mahmoud** **||** [Github](https://github.com/Ahmadelhosary) **|** [Twitter](https://twitter.com/Ahmedma00112233?t=uyPrxkdzKO8fX8o1LIgDFA&s=35) **|** [email](ahmedmahmoud199940@gmail.com)
 
 ## Acknowledgements :pray:
