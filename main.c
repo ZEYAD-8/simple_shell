@@ -11,11 +11,12 @@
  * if (chars_count == 1 && buffer[0] == '\n')
  * Return: always 0.
 */
-int main(__attribute_maybe_unused__ int ac, char **av)
+int main(int ac, char **av)
 {
 	char **argv, **env, *file_path, *buffer;
 	int chars_count, words_count, function_num, status, check_return;
 	size_t buffer_size = 0;
+	(void)ac;
 
 	while (1)
 	{
