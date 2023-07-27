@@ -17,7 +17,7 @@ int check_buffer(char **buffer, int *chars_count)
 	if (*chars_count == 1 && (*buffer)[0] == '\n')
 		return (1);
 
-	*buffer = substring(*buffer,chars_count, " #");
+	*buffer = substring(*buffer, chars_count, " #");
 	if (*buffer == NULL)
 		return (1);
 
