@@ -14,7 +14,7 @@
 int main(int ac, char **av)
 {
 	char **argv, **env, *file_path, *buffer;
-	int chars_count, words_count, function_num, status, check_return;
+	int chars_count, words_count, function_num, status = 0, check_return;
 	size_t buffer_size = 0;
 
 	(void) ac;
@@ -24,7 +24,7 @@ int main(int ac, char **av)
 		buffer = NULL;
 		if (isatty(STDIN_FILENO) != 0)
 			display_prompt();
-		words_count = status = 0;
+		words_count = 0;
 		chars_count = getline(&buffer, &buffer_size, stdin);
 		if (feof(stdin))
 			handle_exit(status, argv, buffer, words_count);
@@ -41,7 +41,7 @@ int main(int ac, char **av)
 		{
 			file_path = search_system(argv[0]);
 			if (file_path != NULL)
-				execute_command(file_path, argv, env);
+				execute_command(file_path, argv, env, &status);
 			else
 				printf("%s: No such file or directory.\n", av[0]);
 		}

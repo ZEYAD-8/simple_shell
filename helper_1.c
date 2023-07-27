@@ -107,7 +107,7 @@ char *search_system(const char *filename)
  * Return: always 0. Unless error occured.
  *
 */
-int execute_command(char *file_path, char *argv[], char *envp[])
+int execute_command(char *file_path, char *argv[], char *envp[], int *child_status)
 {
 	pid_t pid = fork();
 
@@ -118,9 +118,7 @@ int execute_command(char *file_path, char *argv[], char *envp[])
 	}
 	else
 	{
-		int status;
-
-		int termination = wait(&status);
+		int termination = wait(child_status);
 
 		UNUSED(termination);
 		free(file_path);

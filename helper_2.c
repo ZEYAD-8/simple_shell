@@ -20,6 +20,8 @@ void handle_exit(int status, char **argv, char *buffer, int words_count)
 	}
 	if (buffer != NULL)
 		free(buffer);
+	if (status == 512)
+		exit((status / 256));
 	exit(status);
 }
 
