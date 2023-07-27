@@ -81,7 +81,10 @@ char *search_system(const char *filename)
 		{
 			char file_path[1024];
 
-			snprintf(file_path, sizeof(file_path), "%s/%s", path_entry, filename);
+			/* snprintf(file_path, sizeof(file_path), "%s/%s", path_entry, filename); */
+			strcpy(file_path, path_entry);
+			strcat(file_path, "/");
+			strcat(file_path, filename);
 			if (access(file_path, F_OK) == 0)
 			{
 				free(path_copy);
