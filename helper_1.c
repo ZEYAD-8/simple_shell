@@ -103,11 +103,12 @@ char *search_system(const char *filename)
  * @file_path: the path of the executable file
  * @argv: array of arguments
  * @envp: the environment
+ * @ch_st: the termination status
  *
  * Return: always 0. Unless error occured.
  *
 */
-int execute_command(char *file_path, char *argv[], char *envp[], int *child_status)
+int execute_command(char *file_path, char *argv[], char *envp[], int *ch_st)
 {
 	pid_t pid = fork();
 
@@ -118,7 +119,7 @@ int execute_command(char *file_path, char *argv[], char *envp[], int *child_stat
 	}
 	else
 	{
-		int termination = wait(child_status);
+		int termination = wait(ch_st);
 
 		UNUSED(termination);
 		free(file_path);

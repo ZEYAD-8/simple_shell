@@ -17,7 +17,7 @@ int display_prompt(void);
 char **get_argv(const char *line, int *count);
 int is_implemented(char *command);
 char *search_system(const char *filename);
-int execute_command(char *pathname, char *argv[], char *envp[], int *child_status);
+int execute_command(char *pathname, char *argv[], char *envp[], int *ch_st);
 int run_function(int function_number, char **argv);
 int print_env(void);
 void custom_free(char **argv, int words_count);
