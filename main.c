@@ -22,14 +22,14 @@ int main(int ac, char **av)
 	{
 		env = environ;
 		buffer = NULL;
-		if (isatty(STDIN_FILENO))
+		if (isatty(STDIN_FILENO) != 0)
 			display_prompt();
 		words_count = 0;
 		chars_count = getline(&buffer, &buffer_size, stdin);
 		if (feof(stdin))
 			handle_exit(status, argv, buffer, words_count);
 		check_return = check_buffer(&buffer, &chars_count);
-		if (check_return)
+		if (check_return == 1)
 		{
 			if (buffer != NULL)
 				free(buffer);

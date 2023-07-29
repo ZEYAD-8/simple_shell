@@ -24,5 +24,4 @@ void custom_free(char **argv, int words_count);
 void handle_exit(int status, char **argv, char *buffer, int words_count);
 int check_buffer(char **buffer, int *chars_count);
 char *substring(char *str, int *char_count, char *character);
-void change_dir(char **argv);
 #endif

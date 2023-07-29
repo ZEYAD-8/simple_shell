@@ -6,7 +6,7 @@
  * @buffer: the buffer to check.
  * @chars_count: number of characters in the buffer
  *
- * Return: 0 if nothing is wrong with the buffer
+ * Return: 0 if nothing wrong with the buffer
  *         1 if all the buffer is spaces (after dealing with comments)
 */
 int check_buffer(char **buffer, int *chars_count)
@@ -29,28 +29,27 @@ int check_buffer(char **buffer, int *chars_count)
 }
 
 /**
- * substring - if it found a certain characters, a truncated string is returned
+ * substring - if it found a certain character, a truncated string is returned
  *
  * @str: string to check for.
- * @characters: characters to check for.
+ * @character: character to check for.
  * @char_count: number of characters in the string.
  *
- * Return: the string truncated if a characters was found.
+ * Return: the string truncated if a character was found.
 */
-char *substring(char *str, int *char_count, char *characters)
+char *substring(char *str, int *char_count, char *character)
 {
 	char *found, *result;
 	size_t length;
 
-	if (str[0] == characters[1])
+	if (str[0] == character[1])
 	{
 		free(str);
 		return (NULL);
 	}
 
 	found = NULL;
-	found = strstr(str, characters);
-
+	found = strstr(str, character);
 	if (found == NULL)
 		return (str);
 

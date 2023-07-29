@@ -59,7 +59,7 @@ char *search_system(const char *filename)
 
 	if (filename == NULL)
 		return (NULL);
-	if (access(filename, F_OK) == 0)
+	if (access(filename, X_OK) == 0)
 	{
 		samefile = malloc(sizeof(char) * (strlen(filename) + 1));
 		strcpy(samefile, filename);
@@ -82,7 +82,7 @@ char *search_system(const char *filename)
 			char file_path[1024];
 
 			snprintf(file_path, sizeof(file_path), "%s/%s", path_entry, filename);
-			if (access(file_path, F_OK) == 0)
+			if (access(file_path, X_OK) == 0)
 			{
 				free(path_copy);
 				path_return = malloc(sizeof(char) * (strlen(file_path) + 1));
@@ -136,17 +136,14 @@ int execute_command(char *file_path, char *argv[], char *envp[], int *child_stat
 int is_implemented(char *command)
 {
 	int command_length, current_length, str_return, functions_count, shortest, i;
-	char *functions_names[5];
+	char *functions_names[2];
 
 	if (command == NULL)
 		return (-1);
 
 	functions_names[0] = "exit";
 	functions_names[1] = "env";
-	functions_names[2] = "cd";
-	functions_names[3] = "setenv";
-	functions_names[4] = "unsetenv";
-	functions_count = 5;
+	functions_count = 2;
 	command_length = strlen(command);
 
 	for (i = 0; i < functions_count; i++)

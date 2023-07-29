@@ -20,7 +20,7 @@ void handle_exit(int status, char **argv, char *buffer, int words_count)
 	}
 	if (buffer != NULL)
 		free(buffer);
-	if (status > 255)
+	if (status == 512)
 		exit((status / 256));
 	exit(status);
 }
@@ -99,20 +99,15 @@ int run_function(int function_number, char **argv)
 			print_env();
 			break;
 		case 2:
-			change_dir(argv);
-			break;
+			/* cd */
 		case 3:
-			if (setenv(argv[1], argv[2], 1) != 0)
-				perror("setenv");
-			break;
+			/* setenv */
 		case 4:
-			if (unsetenv(argv[1]) != 0)
-				perror("unsetenv");
-			break;
+			/* unsetenv */
 		case 5:
 			/* alias */
 		default:
-			printf("%s: No such file or directory. from run function.\n", argv[0]);
+			printf("%s: No such file or directory.\n", argv[0]);
 	}
 	return (0);
 }
