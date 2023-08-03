@@ -43,6 +43,7 @@ void change_dir(char **argv)
 {
 	char *home_dir = getenv("HOME");
 	char *prev_dir = getenv("OLDPWD");
+	char *current_dir = getenv("PWD");
 	char new_dir[4096];
 
 	if (argv[1] == NULL)
@@ -63,7 +64,8 @@ void change_dir(char **argv)
 				perror("cd - 63");
 			printf("%s\n", prev_dir);
 		}
-		//else
+		else
+			printf("%s\n", current_dir);
 		//	fprintf(stderr, "cd: Previous directory not set.\n");
 	}
 	else
