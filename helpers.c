@@ -50,28 +50,28 @@ void change_dir(char **argv)
 		if (home_dir != NULL)
 		{
 			if (chdir(home_dir) != 0)
-				perror("cd");
+				perror("cd - 53");
 		}
-		else
-			fprintf(stderr, "cd: HOME environment variable not set.\n");
+		//else
+		//	fprintf(stderr, "cd: HOME environment variable not set.\n");
 	}
 	else if (strcmp(argv[1], "-") == 0)
 	{
 		if (prev_dir != NULL)
 		{
 			if (chdir(prev_dir) != 0)
-				perror("cd");
+				perror("cd - 63");
 			printf("%s\n", prev_dir);
 		}
-		else
-			fprintf(stderr, "cd: Previous directory not set.\n");
+		//else
+		//	fprintf(stderr, "cd: Previous directory not set.\n");
 	}
 	else
 	{
 		if (chdir(argv[1]) != 0)
 		{
-			fprintf(stderr, "cd: %s: No such file or directory.\n", argv[1]);
-			perror("cd");
+		//	fprintf(stderr, "cd: %s: No such file or directory.\n", argv[1]);
+			perror("cd - 74");
 		}
 	}
 
