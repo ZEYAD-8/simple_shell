@@ -99,11 +99,15 @@ int run_function(int function_number, char **argv)
 			print_env();
 			break;
 		case 2:
-			/* cd */
+			if (setenv(argv[1], argv[2], 1) != 0)
+			perror("setenv");
+			break;
 		case 3:
-			/* setenv */
+			if (unsetenv(argv[1]) != 0)
+			perror("unsetenv");
+			break;
 		case 4:
-			/* unsetenv */
+			/* cd */
 		case 5:
 			/* alias */
 		default:

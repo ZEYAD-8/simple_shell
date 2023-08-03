@@ -137,14 +137,16 @@ int execute_command(char *file_path, char *argv[], char *envp[], int *ch_st)
 int is_implemented(char *command)
 {
 	int command_length, current_length, str_return, functions_count, shortest, i;
-	char *functions_names[2];
+	char *functions_names[4];
 
 	if (command == NULL)
 		return (-1);
 
 	functions_names[0] = "exit";
 	functions_names[1] = "env";
-	functions_count = 2;
+	functions_names[2] = "setenv";
+	functions_names[3] = "unsetenv";
+	functions_count = 4;
 	command_length = strlen(command);
 
 	for (i = 0; i < functions_count; i++)
