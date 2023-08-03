@@ -1,51 +1,6 @@
 #include "main.h"
 
 /**
- * get_argv - takes a line string and tokenizes it to smaller ones
- *
- * @line: the line string taken from the user.
- * @count: should be updated to the number of words in the line.
- *
- * Return: an array of the strings without spaces
-*/
-char **get_argv(const char *line, int *count)
-{
-	int words_count;
-	char **argv, *word;
-	int i;
-	int length;
-	char *line_dup;
-	char *line_3rd;
-
-	argv = NULL;
-	words_count = *count;
-	length = strlen(line);
-	line_dup = malloc(sizeof(char) * (length + 1));
-	line_3rd = malloc(sizeof(char) * (length + 1));
-	strcpy(line_dup, line);
-	strcpy(line_3rd, line);
-	word = strtok(line_dup, " \n");
-	for (words_count = 0; word != NULL; words_count++)
-		word = strtok(NULL, " \n");
-
-	argv = malloc(sizeof(char *) * (words_count + 1));
-	word = strtok(line_3rd, " \n");
-	for (i = 0; word != NULL; i++)
-	{
-		argv[i] = malloc(sizeof(char) * (strlen(word) + 1));
-		strcpy(argv[i], word);
-		word = strtok(NULL, " \n");
-	}
-	argv[i] = NULL;
-
-	*count = words_count;
-	free(line_3rd);
-	free(line_dup);
-
-	return (argv);
-}
-
-/**
  * search_system - looks for the file name in the path and determine if exists
  *
  * @filename: the name of the file to look up
@@ -137,7 +92,7 @@ int execute_command(char *file_path, char *argv[], char *envp[], int *ch_st)
 int is_implemented(char *command)
 {
 	int command_length, current_length, str_return, functions_count, shortest, i;
-	char *functions_names[4];
+	char *functions_names[5];
 
 	if (command == NULL)
 		return (-1);
@@ -146,7 +101,8 @@ int is_implemented(char *command)
 	functions_names[1] = "env";
 	functions_names[2] = "setenv";
 	functions_names[3] = "unsetenv";
-	functions_count = 4;
+	functions_names[4] = "cd";
+	functions_count = 5;
 	command_length = strlen(command);
 
 	for (i = 0; i < functions_count; i++)
@@ -158,4 +114,53 @@ int is_implemented(char *command)
 			return (i);
 	}
 	return (-1);
+}
+
+/**
+ * run_num - runs the requested built in function
+ *
+ * @fn_num: the number of the requested function
+ * @argv: array of arguments
+ * @buffer: the original buffer, in case it will be free'd.
+ * @word_count: number of words.
+ * @status: the status of the last function call.
+ *
+ * Return: always 0.
+*/
+int run_num(int fn_num, char **argv, char *buffer, int word_count, int status)
+{
+	char *file_path;
+
+	switch (fn_num)
+	{
+		case -1:
+			file_path = search_system(argv[0]);
+			if (file_path != NULL)
+				execute_command(file_path, argv, environ, &status);
+			else
+				return (-1);
+			break;
+		case 0:
+			handle_exit(status, argv, buffer, word_count);
+			break;
+		case 1:
+			print_env();
+			break;
+		case 2:
+			if (setenv(argv[1], argv[2], 1) != 0)
+			perror("setenv");
+			break;
+		case 3:
+			if (unsetenv(argv[1]) != 0)
+			perror("unsetenv");
+			break;
+		case 4:
+			change_dir(argv);
+			break;
+		case 5:
+			/* alias */
+		default:
+			return (-1);
+	}
+	return (0);
 }

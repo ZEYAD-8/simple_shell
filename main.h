@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #define UNUSED(x) (void)(x)
 
@@ -18,10 +19,11 @@ char **get_argv(const char *line, int *count);
 int is_implemented(char *command);
 char *search_system(const char *filename);
 int execute_command(char *pathname, char *argv[], char *envp[], int *ch_st);
-int run_function(int function_number, char **argv);
+int run_num(int fn_num, char **argv, char *buffer, int word_count, int status);
 int print_env(void);
 void custom_free(char **argv, int words_count);
 void handle_exit(int status, char **argv, char *buffer, int words_count);
 int check_buffer(char **buffer, int *chars_count);
 char *substring(char *str, int *char_count, char *character);
+void change_dir(char **argv);
 #endif

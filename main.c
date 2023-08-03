@@ -13,14 +13,14 @@
 */
 int main(int ac, char **av)
 {
-	char **argv, **env, *file_path, *buffer;
-	int chars_count, words_count, function_num, status = 0, check_return;
+	char **argv, *buffer;
+	int chars_count, words_count, function_num, status = 0;
+	int run_return, check_return;
 	size_t buffer_size = 0;
 
 	(void) ac;
 	while (1)
 	{
-		env = environ;
 		buffer = NULL;
 		if (isatty(STDIN_FILENO) != 0)
 			display_prompt();
@@ -37,18 +37,9 @@ int main(int ac, char **av)
 		}
 		argv = get_argv(buffer, &words_count);
 		function_num = is_implemented(argv[0]);
-		if (function_num == -1)
-		{
-			file_path = search_system(argv[0]);
-			if (file_path != NULL)
-				execute_command(file_path, argv, env, &status);
-			else
-				printf("%s: No such file or directory.\n", av[0]);
-		}
-		else if (function_num == 0)
-			handle_exit(status, argv, buffer, words_count);
-		else
-			run_function(function_num, argv);
+		run_return = run_num(function_num, argv, buffer, words_count, status);
+		if (run_return != 0)
+			printf("%s: No such file or directory.\n", av[0]);
 		if (words_count != 0)
 			custom_free(argv, words_count);
 		free(buffer);

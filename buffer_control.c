@@ -65,3 +65,48 @@ char *substring(char *str, int *char_count, char *character)
 	free(str);
 	return (result);
 }
+
+/**
+ * get_argv - takes a line string and tokenizes it to smaller ones
+ *
+ * @line: the line string taken from the user.
+ * @count: should be updated to the number of words in the line.
+ *
+ * Return: an array of the strings without spaces
+*/
+char **get_argv(const char *line, int *count)
+{
+	int words_count;
+	char **argv, *word;
+	int i;
+	int length;
+	char *line_dup;
+	char *line_3rd;
+
+	argv = NULL;
+	words_count = *count;
+	length = strlen(line);
+	line_dup = malloc(sizeof(char) * (length + 1));
+	line_3rd = malloc(sizeof(char) * (length + 1));
+	strcpy(line_dup, line);
+	strcpy(line_3rd, line);
+	word = strtok(line_dup, " \n");
+	for (words_count = 0; word != NULL; words_count++)
+		word = strtok(NULL, " \n");
+
+	argv = malloc(sizeof(char *) * (words_count + 1));
+	word = strtok(line_3rd, " \n");
+	for (i = 0; word != NULL; i++)
+	{
+		argv[i] = malloc(sizeof(char) * (strlen(word) + 1));
+		strcpy(argv[i], word);
+		word = strtok(NULL, " \n");
+	}
+	argv[i] = NULL;
+
+	*count = words_count;
+	free(line_3rd);
+	free(line_dup);
+
+	return (argv);
+}
